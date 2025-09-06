@@ -10,7 +10,7 @@ const message = form.elements.message;
 
 const key = 'feedback-form-state';
 
-if (localStorage[key]) {
+if (localStorage.getItem(key)) {
   email.value = JSON.parse(localStorage.getItem(key)).email;
   message.value = JSON.parse(localStorage.getItem(key)).message;
   formData.email = JSON.parse(localStorage.getItem(key)).email;
@@ -31,6 +31,8 @@ function handleInput(event) {
 form.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
+  event.preventDefault();
+
   if (
     event.target.elements.email.value === '' ||
     event.target.elements.message.value === ''
@@ -39,7 +41,6 @@ function handleSubmit(event) {
     return;
   }
 
-  event.preventDefault();
   console.log(formData);
   localStorage.removeItem(key);
   formData.email = '';
